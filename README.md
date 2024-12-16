@@ -1,6 +1,6 @@
 # EX01 Developing a Simple Webserver
 
-# Date:28.11.2024
+# Date:14.11.2024
 # AIM:
 To develop a simple webserver to serve html pages and display the configuration details of laptop.
 
@@ -21,57 +21,103 @@ Serving the HTML pages.
 Testing the webserver.
 
 # PROGRAM:
-```
-<!doctype html>
-<html>
-    ibchx
+from http.server import HTTPServer, BaseHTTPRequestHandler
+content = """
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<title>Web Server</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>laptop configuration</title>
 </head>
+<style>
+    body{
+        background-color:pink;
+    }
+
+    table{
+        background-color:skyblue;
+        border-collapse: collapse;
+        box-shadow: 0;
+        margin: 60px;
+        text-align: center;
+        color: black;
+    }
+    header{
+        font-size: 420%;
+        background-color: pink;
+    }
+
+</style>
 <body>
-<h1><center>LAPTOP CONFIGURATION</center></h1>
-   <table border="5" cellpadding="20" align="center">
+    <center>
+        <header>
+            MY LAPTOP CONFIGURATION
+        </header>
+    <table border="4px" width="600" height="400">
+        <div class="heading">
+        <tr style="font-size: x-large;">
+            <th>S.NO</th>
+            <th>COMPONENTS</th>
+            <th>DETAILS</th>
+        </tr>
+        </div>
         <tr>
-            <th bgcolor="red">Specification</th>
-            <th bgcolor="red">Details</th>
+            <th>1</th>
+            <th style="font-style: inherit;">PROCESSOR(CPU)</th>
+            <td>13th Gen i5-1335U</td>
         </tr>
-            <td>Model</td>
-            <td>Lenovo</td>
+        <tr>
+            <th>2</th>
+            <th style="font-style: inherit;">MEMORY(RAM)</th>
+            <td>16.0 GB</td>
         </tr>
-        <tr bgcolor="blue">
-            <td>Processor</td>
-            <td>Intel Core i5</td>
+        <tr>
+            <th>3</th>
+            <th style="font-style: inherit;">STORAGE</th>
+            <td>512GB SSD</td>
         </tr>
-        <tr bgcolor="blue">
-            <td>RAM</td>
-            <td>16GB</td>
+        <tr>
+            <th>4</th>
+            <th style="font-style: inherit;">DISPLAY</th>
+            <td>15.6-inch Full HD (1920x1080)</td>
         </tr>
-        <tr bgcolor="blue">
-            <td>Storage</td>a
-            <td>256GB SSD</td>
+        <tr>
+            <th>5</th>
+            <th style="font-style: inherit;">GRAPHICS(GPU)</th>
+            <td>Integrated Intel UHD</td>
         </tr>
-        <tr bgcolor="blue" >
-            <td>Graphics</td>
-            <td>Integrated Intel UHD Graphics</td>
+        <tr>
+            <th>6</th>
+            <th style="font-style: inherit;">BATTERY</th>
+            <td>45 Wh, Up to 8 hours</td>
         </tr>
-        <tr bgcolor="blue">
-            <td>Display</td>
-            <td>14-inch FHD (1920 x 1080)</td>
+        <tr>
+            <th>7</th>
+            <th style="font-style: inherit;">OPERATING SYSTEM</th>
+            <td>Windows 10 Home</td>
         </tr>
-        <tr bgcolor="blue">
-            <td>Operating System</td>
-            <td>Windows 10</td>
-        </tr>
-        <tr bgcolor="blue">
-            <td>Colours available</td>
-            <td>Black,White,Grey</td>
-        </tr>
+
     </table>
+    </center>
 </body>
 </html>
-```
-# OUTPUT:
-![Screenshot 2024-11-28 134743](https://github.com/user-attachments/assets/d70c342f-aea7-4eb6-b5b6-679be5220b5d)
+"""
+class myhandler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        print("request received")
+        self.send_response(200)
+        self.send_header('content-type', 'text/html; charset=utf-8')
+        self.end_headers()
+        self.wfile.write(content.encode())
+server_address = ('',8000)
+httpd = HTTPServer(server_address,myhandler)
+print("my webserver is running...")
+httpd.serve_forever()
 
+# OUTPUT:
+![Screenshot 2024-12-06 104230](https://github.com/user-attachments/assets/48b3a085-b065-4b1d-95aa-bbdda343a081)
+![Screenshot 2024-12-06 104311](https://github.com/user-attachments/assets/36b7ee60-908d-467f-8b69-4e9f80265547)
+[Uploading SCREEN SHOT.html…]()
 # RESULT:
 The program for implementing simple webserver is executed successfully.
